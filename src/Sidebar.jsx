@@ -1,23 +1,27 @@
-import { Avatar, Flex, IconButton, Text } from "@chakra-ui/react";
-import { ExternalLinkIcon, ViewIcon } from "@chakra-ui/icons";
-import React from "react";
-import ChatList from "./ChatList";
+import { Flex, IconButton, Text, useDisclosure } from "@chakra-ui/react";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
+import React, { useState } from "react";
+import ChatList from "./components/chat/ChatList";
 import "./index.css";
+import ModalForm from "./modals/ModalForm";
 
 const Sidebar = () => {
+  // const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isOpen, setIsOpen] = useState(false);
+  const initialRef = React.useRef(null);
+
   return (
     <>
+      {isOpen && <ModalForm isOpen={isOpen} />}
       <Flex
         bg="blackAlpha.900"
         w="300px"
-        // h="100vh"
         borderEnd="1px solid"
-        borderColor="gray.200"
+        borderColor="blackAlpha.500"
         flexDirection="column"
       >
         <Flex
           h="81px"
-          // bg="red.100"
           w="100%"
           align="center"
           justifyContent="space-between"
@@ -59,14 +63,15 @@ const Sidebar = () => {
             }}
             bgColor="black"
             icon={<ExternalLinkIcon />}
+            onClick={() => setIsOpen(!isOpen)}
+            size="lg"
           />
         </Flex>
         <Flex
+          className="test"
           direction="column"
           sx={{
             overflowY: "scroll",
-            scrollbarColor: "black",
-            scrollbarWidth: "1px",
           }}
         >
           <ChatList />

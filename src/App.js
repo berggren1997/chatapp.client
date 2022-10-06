@@ -1,6 +1,6 @@
 import { ChakraProvider, Flex } from "@chakra-ui/react";
-import ChatArea from "./ChatArea";
-import Navbar from "./Navbar";
+import ChatArea from "./components/chat/ChatArea";
+import Navbar from "./components/Navbar";
 import Sidebar from "./Sidebar";
 
 const App = () => {

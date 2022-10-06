@@ -15,7 +15,7 @@ const ChatList = () => {
       align="center"
     >
       <Avatar src="" marginEnd={2} />
-      <Text>user you're talking to</Text>
+      <Text>user@example.com</Text>
     </Flex>
   );
 };

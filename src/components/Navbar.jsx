@@ -1,6 +1,6 @@
 import React from "react";
-import { Avatar, Flex, IconButton } from "@chakra-ui/react";
-import { ChatIcon } from "@chakra-ui/icons";
+import { Avatar, Flex, IconButton, Button, Spacer } from "@chakra-ui/react";
+import { ChatIcon, SettingsIcon } from "@chakra-ui/icons";
 
 const Navbar = () => {
   return (
@@ -10,7 +10,7 @@ const Navbar = () => {
         h="100%"
         bg="blackAlpha.900"
         borderEnd="1px solid"
-        borderEndColor="gray"
+        borderColor="blackAlpha.400"
         direction="column"
         align="center"
       >
@@ -27,8 +27,8 @@ const Navbar = () => {
           _hover={{
             bgColor: "blue",
           }}
-          bgColor="black"
-          size="sm"
+          bgColor="blackAlpha.100"
+          size="lg"
           m={2}
           icon={<ChatIcon />}
         />
@@ -36,8 +36,8 @@ const Navbar = () => {
           _hover={{
             bgColor: "blue",
           }}
-          bgColor="black"
-          size="sm"
+          bgColor="blackAlpha.100"
+          size="lg"
           m={2}
           icon={<ChatIcon />}
         />
@@ -45,8 +45,8 @@ const Navbar = () => {
           _hover={{
             bgColor: "blue",
           }}
-          bgColor="black"
-          size="sm"
+          bgColor="blackAlpha.100"
+          size="lg"
           m={2}
           icon={<ChatIcon />}
         />
@@ -54,10 +54,21 @@ const Navbar = () => {
           _hover={{
             bgColor: "blue",
           }}
-          bgColor="black"
-          size="sm"
+          bgColor="blackAlpha.100"
+          size="lg"
           m={2}
           icon={<ChatIcon />}
+        />
+
+        <Spacer />
+        <IconButton
+          _hover={{
+            bgColor: "blue",
+          }}
+          bgColor="blackAlpha.100"
+          m={2}
+          size="lg"
+          icon={<SettingsIcon />}
         />
       </Flex>
     </>
