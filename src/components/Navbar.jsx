@@ -9,8 +9,8 @@ const Navbar = () => {
         w="60px"
         h="100%"
         bg="blackAlpha.900"
-        borderEnd="1px solid"
-        borderColor="blackAlpha.400"
+        borderEnd="2px solid"
+        borderColor="blackAlpha.900"
         direction="column"
         align="center"
       >
