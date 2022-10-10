@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Flex, IconButton, Button, Spacer } from "@chakra-ui/react";
+import { Avatar, Flex, IconButton, Spacer } from "@chakra-ui/react";
 import { ChatIcon, SettingsIcon } from "@chakra-ui/icons";
 
 const Navbar = () => {
@@ -9,7 +9,7 @@ const Navbar = () => {
         w="60px"
         h="100%"
         bg="blackAlpha.900"
-        borderEnd="2px solid"
+        borderEnd="1px solid"
         borderColor="blackAlpha.900"
         direction="column"
         align="center"

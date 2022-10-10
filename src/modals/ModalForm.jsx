@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {
   Button,
   Modal,
@@ -7,41 +7,44 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  ModalFooter,
-  FormControl,
   Input,
-  FormLabel,
-  useDisclosure,
+  Stack,
 } from "@chakra-ui/react";
 
-const ModalForm = ({ isOpen }) => {
-  const { onClose } = useDisclosure();
+const ModalForm = ({ isOpen, onClose }) => {
+  const [username, setUsername] = useState("");
 
+  const onSearch = async (event) => {
+    // search users request
+    event.preventDefault();
+    console.log(username);
+  };
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader color="black">New conversation</ModalHeader>
+        <ModalContent bg="#2d2d2d" pb={4}>
+          <ModalHeader>New Conversation</ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6} color="blackAlpha.400">
-            <FormControl>
-              <FormLabel>First name</FormLabel>
-              <Input placeholder="First name" />
-            </FormControl>
-
-            <FormControl mt={4}>
-              <FormLabel>Last name</FormLabel>
-              <Input placeholder="Last name" />
-            </FormControl>
+          <ModalBody>
+            <form onSubmit={onSearch}>
+              <Stack spacing={4}>
+                <Input
+                  placeholder="Search for a username"
+                  value={username}
+                  onChange={(event) => setUsername(event.target.value)}
+                />
+                <Button
+                  bg="whiteAlpha.100"
+                  _hover={{ bg: "blue" }}
+                  type="submit"
+                  disabled={!username}
+                >
+                  Search
+                </Button>
+              </Stack>
+            </form>
           </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3}>
-              Save
-            </Button>
-            <Button onClick={onClose}>Cancel</Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </>

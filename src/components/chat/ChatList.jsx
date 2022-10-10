@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Flex, Avatar, Text } from "@chakra-ui/react";
 
 const ChatList = () => {
+  const [conversations, setConversations] = useState([]);
+
+  useEffect(() => {
+    // fetch conversations
+  }, []);
+
   return (
     <Flex
       _hover={{
