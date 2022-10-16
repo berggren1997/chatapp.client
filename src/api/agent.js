@@ -5,16 +5,16 @@ axios.defaults.withCredentials = true;
 axios.interceptors.response.use(
   (res) => res,
   async (error) => {
-    if (error.response.status === 401) {
+    if (error.response && error.response.status === 401) {
       const response = await axios.get("/auth/refresh", {
-        withCredentials: true,
+        // withCredentials: true,
       });
       if (response.status === 200) {
         axios.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${response.data.accessToken}`;
 
-        return axios.request(error.config);
+        return axios(error.config);
       }
     }
     return error;

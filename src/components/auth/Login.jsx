@@ -14,9 +14,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [accessToken, setAccessToken] = useState("");
 
-  const currentUser = () => {
-    axios.get("auth/current-user").catch((err) => console.log(err));
-    // .then((x) => console.log(x.data));
+  const currentUser = async () => {
+    await axios.get("auth/current-user").catch((err) => console.log(err));
   };
 
   const onSubmit = async (event) => {
@@ -30,7 +29,6 @@ const Login = () => {
         },
         { withCredentials: true }
       )
-      // .then((token) => setAccessToken(token.data.accessToken))
       .then(
         (token) =>
           (axios.defaults.headers.common[
@@ -38,10 +36,6 @@ const Login = () => {
           ] = `Bearer ${token.data.accessToken}`)
       )
       .catch((err) => console.log(err));
-
-    // axios.defaults.headers.common[
-    //   "Authorization"
-    // ] = `Bearer ${data["accessToken"]}`;
   };
   return (
     <>

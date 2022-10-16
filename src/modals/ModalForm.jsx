@@ -10,14 +10,21 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
+import axios from "axios";
+import UserSearchList from "./UserSearchList";
 
 const ModalForm = ({ isOpen, onClose }) => {
   const [username, setUsername] = useState("");
+  const [searchedUsers, setSearchedUsers] = useState([]);
 
   const onSearch = async (event) => {
-    // search users request
     event.preventDefault();
-    console.log(username);
+    const response = await axios
+      .get(`/auth/search/${username}`)
+      .catch((err) => console.log(err));
+    if (response.status === 200) {
+      setSearchedUsers(response.data);
+    }
   };
   return (
     <>
@@ -35,8 +42,8 @@ const ModalForm = ({ isOpen, onClose }) => {
                   onChange={(event) => setUsername(event.target.value)}
                 />
                 <Button
-                  bg="whiteAlpha.100"
-                  _hover={{ bg: "blue" }}
+                  bg="blue"
+                  _hover={{ bg: "blue.900" }}
                   type="submit"
                   disabled={!username}
                 >
@@ -44,6 +51,7 @@ const ModalForm = ({ isOpen, onClose }) => {
                 </Button>
               </Stack>
             </form>
+            {searchedUsers && <UserSearchList users={searchedUsers} />}
           </ModalBody>
         </ModalContent>
       </Modal>

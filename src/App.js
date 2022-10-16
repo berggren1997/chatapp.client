@@ -9,10 +9,10 @@ const App = () => {
   return (
     <ChakraProvider>
       <Flex h="100vh">
-        <Login />
-        {/* <Navbar />
+        {/* <Login /> */}
+        <Navbar />
         <Sidebar />
-        <ChatArea /> */}
+        <ChatArea />
       </Flex>
     </ChakraProvider>
   );
