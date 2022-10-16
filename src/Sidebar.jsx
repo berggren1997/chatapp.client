@@ -35,17 +35,6 @@ const Sidebar = () => {
               Chat
             </Text>
           </Flex>
-
-          {/* <Flex align="center" direction="column">
-            <Text marginEnd={1}>Profile</Text>
-            <IconButton
-              _hover={{
-                bgColor: "blue",
-              }}
-              bgColor="black"
-              icon={<ViewIcon />}
-            />
-          </Flex> */}
         </Flex>
         <Flex
           align="center"
@@ -76,6 +65,7 @@ const Sidebar = () => {
           }}
         >
           <ChatList />
+          {/* <ChatList />
           <ChatList />
           <ChatList />
           <ChatList />
@@ -90,8 +80,7 @@ const Sidebar = () => {
           <ChatList />
           <ChatList />
           <ChatList />
-          <ChatList />
-          <ChatList />
+          <ChatList /> */}
         </Flex>
       </Flex>
     </>
