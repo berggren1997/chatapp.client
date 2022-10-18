@@ -7,7 +7,10 @@ import {
   FormControl,
   Text,
 } from "@chakra-ui/react";
+import axios from "axios";
 import React from "react";
+import { useSelector } from "react-redux";
+import { selectCurrentToken } from "../../features/auth/authSlice";
 
 const ChatArea = () => {
   return (

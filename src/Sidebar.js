@@ -1,7 +1,7 @@
 import { Flex, IconButton, Text } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
-import ChatList from "./components/chat/ChatList";
+import ChatList from "./features/conversations/ChatList";
 // import "./index.css";
 import ModalForm from "./modals/ModalForm";
 
@@ -42,7 +42,7 @@ const Sidebar = () => {
           p={2}
           m={2}
           borderRadius="10px"
-          backgroundColor="black"
+          backgroundColor="blackAlpha.600"
         >
           <Text marginEnd={2} fontWeight="bold">
             New conversation
@@ -51,7 +51,7 @@ const Sidebar = () => {
             _hover={{
               bgColor: "blue",
             }}
-            bgColor="black"
+            bgColor="blackAlpha.600"
             icon={<ExternalLinkIcon />}
             onClick={openModal}
             size="lg"
