@@ -1,15 +1,15 @@
 import { useLocation, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentToken } from "./authSlice";
-import HomePage from "../../layout/HomePage";
+import WrapperPage from "../../layout/WrapperPage";
 
 const RequireAuth = () => {
   const token = useSelector(selectCurrentToken);
   const location = useLocation();
   return token ? (
-    <HomePage />
+    <WrapperPage />
   ) : (
-    <Navigate to="/" state={{ from: location }} replace />
+    <Navigate to="/login" state={{ from: location }} replace />
   );
 };
 

@@ -20,7 +20,7 @@ const ModalForm = ({ isOpen, onClose }) => {
   const onSearch = async (event) => {
     event.preventDefault();
     const response = await axios
-      .get(`/auth/search/${username}`)
+      .get(`https://localhost:7093/api/v1/auth/search/${username}`)
       .catch((err) => console.log(err));
     if (response.status === 200) {
       setSearchedUsers(response.data);

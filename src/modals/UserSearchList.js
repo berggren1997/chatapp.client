@@ -1,16 +1,27 @@
 import { Avatar, Flex, Stack, Text, Button } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectCurrentToken } from "../features/auth/authSlice";
 import Participant from "./Participant";
+import { useNavigate } from "react-router-dom";
 
 const UserSearchList = ({ users }) => {
   const [recipient, setRecipient] = useState("");
+  const token = useSelector(selectCurrentToken);
+  const navigate = useNavigate();
 
   const startConversation = async (username) => {
-    const response = await axios.post(`/conversation/${username}`);
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    const response = await axios
+      .post(`https://localhost:7093/api/v1/conversation/${username}`)
+      .catch((err) => console.log(err));
 
-    if (response.status === 201) {
-      //navigate to conversation
+    if (response.status === 200) {
+      const conversationId = response.data;
+      navigate(`/${conversationId}`);
+
+      setRecipient("");
     }
   };
 

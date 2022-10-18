@@ -34,7 +34,7 @@ const Login = () => {
       dispatch(setCredentials({ ...response }));
       setUsername("");
       setPassword("");
-      history("/home");
+      history("/");
     } catch (error) {
       console.log(error);
     }

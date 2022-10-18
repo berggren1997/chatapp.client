@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar, Flex, IconButton, Spacer } from "@chakra-ui/react";
 import { ChatIcon, SettingsIcon } from "@chakra-ui/icons";
+import { Link } from "react-router-dom";
+import Sidebar from "../Sidebar";
 
 const Navbar = () => {
+  const [toggleChat, setToggleChat] = useState(false);
   return (
     <>
       <Flex
@@ -30,33 +33,7 @@ const Navbar = () => {
           bgColor="blackAlpha.100"
           size="lg"
           m={2}
-          icon={<ChatIcon />}
-        />
-        <IconButton
-          _hover={{
-            bgColor: "blue",
-          }}
-          bgColor="blackAlpha.100"
-          size="lg"
-          m={2}
-          icon={<ChatIcon />}
-        />
-        <IconButton
-          _hover={{
-            bgColor: "blue",
-          }}
-          bgColor="blackAlpha.100"
-          size="lg"
-          m={2}
-          icon={<ChatIcon />}
-        />
-        <IconButton
-          _hover={{
-            bgColor: "blue",
-          }}
-          bgColor="blackAlpha.100"
-          size="lg"
-          m={2}
+          onClick={() => setToggleChat(!toggleChat)}
           icon={<ChatIcon />}
         />
 
@@ -71,6 +48,7 @@ const Navbar = () => {
           icon={<SettingsIcon />}
         />
       </Flex>
+      {toggleChat && <Sidebar />}
     </>
   );
 };

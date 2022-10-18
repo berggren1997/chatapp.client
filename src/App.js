@@ -1,9 +1,10 @@
 import { ChakraProvider, Flex } from "@chakra-ui/react";
-import Login from "./components/auth/Login";
+import Login from "./components/user/Login";
 import { Route, Routes } from "react-router-dom";
-import HomePage from "./layout/HomePage";
-import Register from "./components/auth/Register";
+import WrapperPage from "./layout/WrapperPage";
+import Register from "./components/user/Register";
 import RequireAuth from "./features/auth/RequireAuth";
+import ChatArea from "./components/chat/ChatArea";
 
 const App = () => {
   return (
@@ -11,10 +12,10 @@ const App = () => {
       <ChakraProvider>
         <Flex h="100vh">
           <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route element={<RequireAuth />}>
-              <Route path="/home" element={<HomePage />} />
+              <Route path="/" element={<WrapperPage />} />
             </Route>
           </Routes>
         </Flex>

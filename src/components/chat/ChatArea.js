@@ -10,21 +10,29 @@ import {
 import axios from "axios";
 import React from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { selectCurrentToken } from "../../features/auth/authSlice";
 
 const ChatArea = () => {
+  const { id } = useParams();
   return (
     <>
-      <Flex bg="blackAlpha.900" flex={1} direction="column">
+      <Flex
+        bg="blackAlpha.900"
+        flex={1}
+        direction="column"
+        border="2px solid red"
+      >
+        {id ? <div>conversation id: {id}</div> : <div>no conversations</div>}
         {/* top area */}
-        <Flex bg="blackAlpha.300" h="58px" w="100%" align="center">
+        {/* <Flex bg="blackAlpha.300" h="58px" w="100%" align="center">
           <Avatar src="" marginLeft={2} marginEnd={3} size="md" />
           <Heading size="md">username</Heading>
-        </Flex>
+        </Flex> */}
 
         {/* chatarea */}
-        <Flex flex={1} bgColor="blackAlpha.400" direction="column" p={3}>
-          <Flex align="center" p={3}>
+        {/* <Flex flex={1} bgColor="blackAlpha.400" direction="column" p={3}> */}
+        {/* <Flex align="center" p={3}>
             <Avatar src="" size="xs" />
             <Text
               bg="blue.500"
@@ -37,8 +45,8 @@ const ChatArea = () => {
               this is a dummy message from you
             </Text>
             <Text fontSize="2xs">14:10</Text>
-          </Flex>
-          <Flex align="center" p={3}>
+          </Flex> */}
+        {/* <Flex align="center" p={3}>
             <Avatar src="" size="xs" />
             <Text
               bg="blue.500"
@@ -51,8 +59,8 @@ const ChatArea = () => {
               this is a dummy message from you
             </Text>
             <Text fontSize="2xs">14:18</Text>
-          </Flex>
-          <Flex align="center" p={3}>
+          </Flex> */}
+        {/* <Flex align="center" p={3}>
             <Avatar src="" size="xs" />
             <Text
               bg="blue.500"
@@ -65,9 +73,9 @@ const ChatArea = () => {
               this is a dummy message from you
             </Text>
             <Text fontSize="2xs">14:28</Text>
-          </Flex>
+          </Flex> */}
 
-          <Flex align="center" p={3}>
+        {/* <Flex align="center" p={3}>
             <Avatar src="" size="xs" />
             <Text
               bg="gray.500"
@@ -80,11 +88,11 @@ const ChatArea = () => {
               this is a dummy message from the one you're talking too
             </Text>
             <Text fontSize="2xs">14:28</Text>
-          </Flex>
-        </Flex>
+          </Flex> */}
+        {/* </Flex> */}
 
         {/* input area  */}
-        <FormControl bgColor="blackAlpha.400" borderTopColor="gray.100" p={3}>
+        {/* <FormControl bgColor="blackAlpha.400" borderTopColor="gray.100" p={3}>
           <Input
             autoComplete="off"
             borderRadius="10px"
@@ -92,7 +100,7 @@ const ChatArea = () => {
             border="none"
           />
           <Button type="submit" hidden></Button>
-        </FormControl>
+        </FormControl> */}
       </Flex>
     </>
   );

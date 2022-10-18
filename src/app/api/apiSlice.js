@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { setCredentials, logout } from "../../features/auth/authSlice";
 
-// this is the equivalence of axios but in redux toolkit
+// this is the equivalence of axios/axios-interceptors but in redux toolkit
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://localhost:7093/api/v1",
-  setCredentials: "include",
+  credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.token;
     if (token) {

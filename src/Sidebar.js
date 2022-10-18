@@ -1,12 +1,15 @@
-import { Flex, IconButton, Text } from "@chakra-ui/react";
+import { Flex, IconButton, Text, Button } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
 import ChatList from "./features/conversations/ChatList";
 // import "./index.css";
 import ModalForm from "./modals/ModalForm";
+import { useSelector } from "react-redux";
+import { selectCurrentToken } from "./features/auth/authSlice";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const token = useSelector(selectCurrentToken);
 
   const openModal = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
@@ -22,17 +25,17 @@ const Sidebar = () => {
         flexDirection="column"
       >
         <Flex
-          h="81px"
+          h="60px"
           w="100%"
           align="center"
-          justifyContent="space-between"
+          justifyContent="center"
           p={3}
           borderBottom="1px solid"
           borderColor="gray.200"
         >
           <Flex align="center">
-            <Text fontSize="22px" fontWeight="bold">
-              Chat
+            <Text fontSize="19px" fontWeight="bold">
+              Conversations
             </Text>
           </Flex>
         </Flex>
@@ -64,27 +67,10 @@ const Sidebar = () => {
             overflowY: "scroll",
           }}
         >
-          <ChatList />
-          {/* <ChatList />
-          <ChatList />
-          <ChatList />
-          <ChatList />
-          <ChatList />
-          <ChatList />
-          <ChatList />
-          <ChatList />
-          <ChatList />
-          <ChatList />
-          <ChatList />
-          <ChatList />
-          <ChatList />
-          <ChatList />
-          <ChatList />
-          <ChatList /> */}
+          {token && <ChatList />}
         </Flex>
       </Flex>
     </>
   );
 };
-
 export default Sidebar;
