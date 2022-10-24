@@ -2,7 +2,6 @@ import { Flex, IconButton, Text } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import ConversationList from "./ConversationList";
-// import "./index.css";
 import ModalForm from "../../modals/ModalForm";
 
 const ConversationSidebar = ({ conversations }) => {

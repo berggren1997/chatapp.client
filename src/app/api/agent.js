@@ -27,6 +27,7 @@ axios.interceptors.response.use(
       // Access Token was expired
       if (err.response.status === 401 && !originalConfig._retry) {
         localStorage.removeItem("jwt");
+        localStorage.removeItem("user");
         originalConfig._retry = true;
         try {
           const rs = await axios.get("/auth/refresh", {
@@ -36,6 +37,7 @@ axios.interceptors.response.use(
           const { accessToken, username } = rs.data;
           axios.headers.Authorization = `Bearer ${accessToken}`;
           localStorage.setItem("jwt", accessToken);
+          localStorage.setItem("user", username);
 
           return axios(originalConfig);
         } catch (_error) {

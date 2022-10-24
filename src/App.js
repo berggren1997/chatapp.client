@@ -10,7 +10,7 @@ const App = () => {
   return (
     <>
       <ChakraProvider>
-        <Flex h="100vh">
+        <Flex h="100vh" overflow="hidden">
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
