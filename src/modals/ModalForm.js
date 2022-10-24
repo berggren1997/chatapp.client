@@ -11,7 +11,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import axios from "axios";
-import UserSearchList from "./UserSearchList";
+import ConversationSearchList from "./ConversationSearchList";
 
 const ModalForm = ({ isOpen, onClose }) => {
   const [username, setUsername] = useState("");
@@ -51,7 +51,7 @@ const ModalForm = ({ isOpen, onClose }) => {
                 </Button>
               </Stack>
             </form>
-            {searchedUsers && <UserSearchList users={searchedUsers} />}
+            {searchedUsers && <ConversationSearchList users={searchedUsers} />}
           </ModalBody>
         </ModalContent>
       </Modal>

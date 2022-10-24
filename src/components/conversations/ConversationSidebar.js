@@ -1,16 +1,12 @@
-import { Flex, IconButton, Text, Button } from "@chakra-ui/react";
+import { Flex, IconButton, Text } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import React, { useState } from "react";
-import ChatList from "./features/conversations/ChatList";
+import { useState } from "react";
+import ConversationList from "./ConversationList";
 // import "./index.css";
-import ModalForm from "./modals/ModalForm";
-import { useSelector } from "react-redux";
-import { selectCurrentToken } from "./features/auth/authSlice";
+import ModalForm from "../../modals/ModalForm";
 
-const Sidebar = () => {
+const ConversationSidebar = ({ conversations }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const token = useSelector(selectCurrentToken);
-
   const openModal = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
 
@@ -19,9 +15,10 @@ const Sidebar = () => {
       <ModalForm isOpen={isOpen} onClose={onClose} />
       <Flex
         bg="blackAlpha.900"
+        // flexGrow={1}
         w="300px"
         borderEnd="1px solid"
-        borderColor="blackAlpha.500"
+        borderColor="whiteAlpha.200"
         flexDirection="column"
       >
         <Flex
@@ -31,7 +28,7 @@ const Sidebar = () => {
           justifyContent="center"
           p={3}
           borderBottom="1px solid"
-          borderColor="gray.200"
+          borderColor="whiteAlpha.200"
         >
           <Flex align="center">
             <Text fontSize="19px" fontWeight="bold">
@@ -45,7 +42,7 @@ const Sidebar = () => {
           p={2}
           m={2}
           borderRadius="10px"
-          backgroundColor="blackAlpha.600"
+          backgroundColor="whiteAlpha.200"
         >
           <Text marginEnd={2} fontWeight="bold">
             New conversation
@@ -54,7 +51,7 @@ const Sidebar = () => {
             _hover={{
               bgColor: "blue",
             }}
-            bgColor="blackAlpha.600"
+            bgColor="whiteAlpha.200"
             icon={<ExternalLinkIcon />}
             onClick={openModal}
             size="lg"
@@ -67,10 +64,10 @@ const Sidebar = () => {
             overflowY: "scroll",
           }}
         >
-          {token && <ChatList />}
+          {conversations && <ConversationList conversations={conversations} />}
         </Flex>
       </Flex>
     </>
   );
 };
-export default Sidebar;
+export default ConversationSidebar;

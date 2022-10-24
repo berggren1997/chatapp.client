@@ -1,21 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setCredentials } from "../../features/auth/authSlice";
-import { useLoginMutation } from "../../features/auth/authApiSlice";
+import agent from "../../app/api/agent";
 
 const Login = () => {
   const userRef = useRef();
-  const errRef = useRef();
-  const [username, setUsername] = useState("");
+  const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const history = useNavigate();
-
-  const [login, { isLoading }] = useLoginMutation();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     userRef.current.focus();
@@ -23,41 +16,22 @@ const Login = () => {
 
   useEffect(() => {
     setErrorMessage("");
-  }, [username, password]);
+  }, [userName, password]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await login({ username, password }).unwrap();
-      console.log("from login componenet: " + response);
-      dispatch(setCredentials({ ...response }));
+      const response = await agent.User.login({ userName, password });
+      const { accessToken, username } = response;
       setUsername("");
       setPassword("");
-      history("/");
+      localStorage.setItem("jwt", accessToken);
+      localStorage.setItem("user", username);
+      history("/conversations");
     } catch (error) {
       console.log(error);
     }
-    // const response = await axios
-    //   .post(
-    //     "/auth/login",
-    //     {
-    //       username,
-    //       password,
-    //     },
-    //     { withCredentials: true }
-    //   )
-    //   .then(
-    //     (token) =>
-    //       (axios.defaults.headers.common[
-    //         "Authorization"
-    //       ] = `Bearer ${token.data.accessToken}`)
-    //   )
-    //   .catch((err) => console.log(err));
-
-    // if (response) {
-    //   history("/home");
-    // }
   };
   return (
     <>
@@ -71,7 +45,7 @@ const Login = () => {
                 ref={userRef}
                 border="none"
                 placeholder="Username"
-                value={username}
+                value={userName}
                 onChange={(event) => setUsername(event.target.value)}
               />
             </Flex>
@@ -93,7 +67,7 @@ const Login = () => {
               type="submit"
               mt={3}
               mb={2}
-              disabled={!username || !password}
+              disabled={!userName || !password}
               _hover={{
                 bg: "blue.900",
               }}

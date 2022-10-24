@@ -1,26 +1,10 @@
 import { Flex, Avatar, Text } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectCurrentUser } from "../auth/authSlice";
-import { useGetConversationsQuery } from "./conversationsApiSlice";
 
-const ChatList = () => {
-  const {
-    data: conversations,
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-  } = useGetConversationsQuery();
-  const username = useSelector(selectCurrentUser);
+const ConversationList = ({ conversations }) => {
+  const username = localStorage.getItem("user");
   const navigate = useNavigate();
 
-  const loadConversation = (conversation) => {
-    navigate(`/conversation/${conversation.id}`);
-  };
-
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>something went wrong</div>;
   return (
     <>
       {conversations &&
@@ -36,7 +20,7 @@ const ChatList = () => {
             p={3}
             m={2}
             align="center"
-            onClick={() => loadConversation(conversation)}
+            onClick={() => navigate(`conversations/${conversation.id}`)}
           >
             <Avatar src="" size="sm" />
             {conversation.recipient === username ? (
@@ -50,4 +34,4 @@ const ChatList = () => {
   );
 };
 
-export default ChatList;
+export default ConversationList;

@@ -1,15 +1,13 @@
 import { useLocation, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectCurrentToken } from "./authSlice";
-import WrapperPage from "../../layout/WrapperPage";
+import ConversationPage from "../../pages/ConversationPage";
 
 const RequireAuth = () => {
-  const token = useSelector(selectCurrentToken);
+  const token = localStorage.getItem("jwt"); //useSelector(selectCurrentToken);
   const location = useLocation();
   return token ? (
-    <WrapperPage />
+    <ConversationPage />
   ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
+    <Navigate to="/" state={{ from: location }} replace />
   );
 };
 

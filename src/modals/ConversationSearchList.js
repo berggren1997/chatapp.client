@@ -1,25 +1,23 @@
 import { Avatar, Flex, Stack, Text, Button } from "@chakra-ui/react";
-import axios from "axios";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { selectCurrentToken } from "../features/auth/authSlice";
 import Participant from "./Participant";
 import { useNavigate } from "react-router-dom";
+import agent from "../app/api/agent";
 
-const UserSearchList = ({ users }) => {
+const ConversationSearchList = ({ users }) => {
   const [recipient, setRecipient] = useState("");
-  const token = useSelector(selectCurrentToken);
   const navigate = useNavigate();
 
-  const startConversation = async (username) => {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    const response = await axios
-      .post(`https://localhost:7093/api/v1/conversation/${username}`)
-      .catch((err) => console.log(err));
+  const createConversation = async (username) => {
+    // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    // const response = await axios
+    //   .post(`https://localhost:7093/api/v1/conversation/${username}`)
+    //   .catch((err) => console.log(err));
+    const response = await agent.Conversations.createConversation(username);
 
     if (response.status === 200) {
       const conversationId = response.data;
-      navigate(`/${conversationId}`);
+      navigate(`/conversations/${conversationId}`);
 
       setRecipient("");
     }
@@ -85,7 +83,7 @@ const UserSearchList = ({ users }) => {
               w="100%"
               bg="blue"
               _hover={{ bg: "blue" }}
-              onClick={() => startConversation(recipient)}
+              onClick={() => createConversation(recipient)}
             >
               Create conversation
             </Button>
@@ -96,4 +94,4 @@ const UserSearchList = ({ users }) => {
   }
 };
 
-export default UserSearchList;
+export default ConversationSearchList;
