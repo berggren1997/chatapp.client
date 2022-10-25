@@ -15,7 +15,7 @@ const ConversationSidebar = ({ conversations }) => {
       <Flex
         bg="blackAlpha.900"
         // flexGrow={1}
-        w="300px"
+        w="400px"
         borderEnd="1px solid"
         borderColor="whiteAlpha.200"
         flexDirection="column"

@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import ConversationSearchList from "./ConversationSearchList";
+import agent from "../app/api/agent";
 
 const ModalForm = ({ isOpen, onClose }) => {
   const [username, setUsername] = useState("");
@@ -19,11 +20,13 @@ const ModalForm = ({ isOpen, onClose }) => {
 
   const onSearch = async (event) => {
     event.preventDefault();
-    const response = await axios
-      .get(`https://localhost:7093/api/v1/auth/search/${username}`)
-      .catch((err) => console.log(err));
-    if (response.status === 200) {
-      setSearchedUsers(response.data);
+
+    const response = await agent.User.searchUser(username).catch((err) =>
+      console.log(err)
+    );
+
+    if (response) {
+      setSearchedUsers(response);
     }
   };
   return (

@@ -70,14 +70,27 @@ const Conversations = {
       .then(responseBody),
 };
 
+const Messages = {
+  getMessagesInConversation: (conversationId) =>
+    axios.get(`/message/${conversationId}`).then(responseBody),
+};
+
 const User = {
   login: ({ userName, password }) =>
     axios.post("/auth/login", { userName, password }).then(responseBody),
   register: ({ username, email, password, confirmPassword }) =>
-    axios.post("auth/register", { username, email, password, confirmPassword }),
+    axios.post("/auth/register", {
+      username,
+      email,
+      password,
+      confirmPassword,
+    }),
+  searchUser: (username) =>
+    axios.get(`auth/search/${username}`).then(responseBody),
 };
 
 export default {
   Conversations,
+  Messages,
   User,
 };

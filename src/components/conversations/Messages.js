@@ -1,24 +1,40 @@
-import {
-  Flex,
-  Avatar,
-  Text,
-  Input,
-  Button,
-  FormControl,
-} from "@chakra-ui/react";
+import { Flex, Avatar, Text, Input, Button } from "@chakra-ui/react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import agent from "../../app/api/agent";
+import { isNullOrWhiteSpace } from "../../utils/utils";
 
-const Messages = ({ chatMessages }) => {
+const Messages = () => {
+  const { id } = useParams();
   const username = localStorage.getItem("user");
-  const [chatMessage, setChatMessage] = useState([chatMessages]);
   const [newMessage, setNewMessage] = useState("");
+  const [messages, setMessages] = useState([]);
 
   const [connection, setConnection] = useState(null);
 
+  const getMessages = async () => {
+    if (id) {
+      const response = await agent.Messages.getMessagesInConversation(
+        parseInt(id)
+      );
+
+      if (response) {
+        setMessages(response);
+      }
+    }
+  };
+  useEffect(() => {
+    getMessages();
+  }, [id]);
+
   useEffect(() => {
     const newConnection = new HubConnectionBuilder()
-      .withUrl("https://localhost:7093/chathub")
+      .withUrl("https://localhost:7093/chathub", {
+        accessTokenFactory: () => {
+          return localStorage.getItem("jwt");
+        },
+      })
       .withAutomaticReconnect()
       .build();
     setConnection(newConnection);
@@ -29,8 +45,7 @@ const Messages = ({ chatMessages }) => {
       connection.start().then((result) => {
         console.log("Connected");
         connection.on("ReceiveMessage", (message) => {
-          setChatMessage([...chatMessage, message]);
-          console.log(message);
+          setMessages((prevMessages) => [...prevMessages, message]);
         });
       });
     }
@@ -38,19 +53,21 @@ const Messages = ({ chatMessages }) => {
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    if (connection) {
+    if (connection && !isNullOrWhiteSpace(newMessage) && id) {
       try {
-        await connection.invoke("SendMessageAsync", newMessage);
+        await connection.invoke("SendMessageAsync", newMessage, parseInt(id));
+        setNewMessage("");
       } catch (error) {
         console.log(error);
       }
     }
   };
+
   return (
     <>
       <Flex overflowY="scroll" flex={1} p={3} direction="column">
-        {chatMessages &&
-          chatMessages.map((message) => (
+        {messages &&
+          messages.map((message) => (
             <Flex
               justify={username === message.fromUsername ? "flex-end" : ""}
               align="center"
@@ -79,6 +96,7 @@ const Messages = ({ chatMessages }) => {
       <Flex p={3}>
         <form style={{ width: "100%" }} onSubmit={sendMessage}>
           <Input
+            borderRadius="15px"
             border="none"
             type="text"
             autoComplete="off"
