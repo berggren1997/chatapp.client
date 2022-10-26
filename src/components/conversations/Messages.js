@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import agent from "../../app/api/agent";
 import { isNullOrWhiteSpace } from "../../utils/utils";
+import { useRef } from "react";
 
 const Messages = () => {
   const { id } = useParams();
   const username = localStorage.getItem("user");
   const [newMessage, setNewMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const bottomOfChat = useRef();
 
   const [connection, setConnection] = useState(null);
 
@@ -23,6 +25,13 @@ const Messages = () => {
         setMessages(response);
       }
     }
+  };
+
+  useEffect(() => {
+    scrollToRef();
+  }, [messages]);
+  const scrollToRef = () => {
+    bottomOfChat.current.scrollIntoView({ behavior: "smooth" });
   };
   useEffect(() => {
     getMessages();
@@ -44,9 +53,13 @@ const Messages = () => {
     if (connection) {
       connection.start().then((result) => {
         console.log("Connected");
-        connection.on("ReceiveMessage", (message) => {
-          setMessages((prevMessages) => [...prevMessages, message]);
-        });
+        try {
+          connection.on("ReceiveMessage", (message) => {
+            setMessages((prevMessages) => [...prevMessages, message]);
+          });
+        } catch (error) {
+          console.log(error);
+        }
       });
     }
   }, [connection]);
@@ -92,6 +105,7 @@ const Messages = () => {
               <Text fontSize="2xs">{message.createdAt.split("T")[0]}</Text>
             </Flex>
           ))}
+        <div ref={bottomOfChat}></div>
       </Flex>
       <Flex p={3}>
         <form style={{ width: "100%" }} onSubmit={sendMessage}>

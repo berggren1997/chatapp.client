@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import ConversationArea from "../components/conversations/ConversationArea";
 import ConversationSidebar from "../components/conversations/ConversationSidebar";
 import agent from "../app/api/agent";
+import Navbar from "../components/Navbar";
 
 const ConversationPage = () => {
   const [conversations, setConversations] = useState([]);
@@ -17,7 +18,7 @@ const ConversationPage = () => {
 
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
       <ConversationSidebar conversations={conversations} />
       <ConversationArea />
     </>
