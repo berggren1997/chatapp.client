@@ -5,6 +5,8 @@ import Register from "./components/user/Register";
 import RequireAuth from "./features/auth/RequireAuth";
 import ConversationPage from "./pages/ConversationPage";
 import ConversationArea from "./components/conversations/ConversationArea";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   return (
@@ -20,6 +22,7 @@ const App = () => {
               </Route>
             </Route>
           </Routes>
+          <ToastContainer position="bottom-right" />
         </Flex>
       </ChakraProvider>
     </>

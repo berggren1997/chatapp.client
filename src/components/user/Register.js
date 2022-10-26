@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import agent from "../../app/api/agent";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -24,6 +25,9 @@ const Register = () => {
       }
     } catch (error) {
       console.log(error);
+      toast.error("Problem registering user", {
+        theme: "dark",
+      });
     }
   };
   return (

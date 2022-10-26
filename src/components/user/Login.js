@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import agent from "../../app/api/agent";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const userRef = useRef();
@@ -30,6 +31,10 @@ const Login = () => {
       localStorage.setItem("user", username);
       history("/conversations");
     } catch (error) {
+      toast.error("Problem logging in", {
+        theme: "dark",
+      });
+
       console.log(error);
     }
   };
